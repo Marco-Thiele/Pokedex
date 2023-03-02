@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body onload="loadAllPokemons()">
+
+    <header>
+        <h1>Pokedex</h1>
+        <p class="search-text">
+            Search for Pokémon by name or using the National Pokédex number.
+        </p>
+        <div class="search-div">
+            <input class="search-input" type="text || number" placeholder="Please whrite Name or ID ">
+        </div>
+
+    </header>
+
+    <div class="cards" id="allPokemons">
+
+    </div>
+    <div class="d-none overlay" id="overlay">
+
+    </div>
+
+
+</body>
+
+</html>
