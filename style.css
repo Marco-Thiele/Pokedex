@@ -1,77 +1,79 @@
-.bg-color-green{
-    background-color: rgb(74,208,178);
+.bg-color-green {
+    background-color: rgb(74, 208, 178);
 }
 
-.bg-color-red{
-    background-color: #FC6C6E;  
+.bg-color-red {
+    background-color: #FC6C6E;
 }
 
-.bg-color-blue{
-    background-color: rgb(88,171,246);
+.bg-color-blue {
+    background-color: rgb(88, 171, 246);
 }
 
-.bg-color-yellow{
-    background-color: rgb(255,216,112);
+.bg-color-yellow {
+    background-color: rgb(255, 216, 112);
 }
 
-.bg-color-oliv{
-    background-color: rgb(156,173,26);
+.bg-color-oliv {
+    background-color: rgb(156, 173, 26);
 }
 
-.bg-color-grey{
-    background-color: rgb(181,185,196);
+.bg-color-grey {
+    background-color: rgb(181, 185, 196);
 }
 
-.bg-color-purple{
-    background-color: rgb(149,53,148);
+.bg-color-purple {
+    background-color: rgb(149, 53, 148);
 }
 
-.bg-color-sand{
-    background-color: rgb(221,178,89);
+.bg-color-sand {
+    background-color: rgb(221, 178, 89);
 }
 
-.bg-color-pink{
-    background-color: rgb(235,168,195);
+.bg-color-pink {
+    background-color: rgb(235, 168, 195);
 }
 
-.bg-color-darkred{
-    background-color: rgb(235,73,113);
+.bg-color-darkred {
+    background-color: rgb(235, 73, 113);
 }
 
-.bg-color-brown{
-    background-color: rgb(140,145,139);
+.bg-color-brown {
+    background-color: rgb(140, 145, 139);
 }
 
-.bg-color-orange{
-    background-color: rgb(255,167,86);
+.bg-color-orange {
+    background-color: rgb(255, 167, 86);
 }
 
-.bg-color-violet{
-    background-color: rgb(133,113,190);
+.bg-color-violet {
+    background-color: rgb(133, 113, 190);
 }
 
-.bg-color-ice{
-    background-color: rgb(145,216,223);
+.bg-color-ice {
+    background-color: rgb(145, 216, 223);
 }
 
-.bg-color-darkblue{
-    background-color: rgb(115,131,185);
+.bg-color-darkblue {
+    background-color: rgb(115, 131, 185);
 }
 
-body{
+body {
     margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #b3b3ae;
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
-.search-text{
+.search-text {
     text-align: center;
     font-size: 24px;
 }
 
-.search-input{
+.search-input {
     margin-bottom: 40px;
     border-radius: 20px;
     padding: 12px;
@@ -79,25 +81,23 @@ h1{
     text-align: center;
 }
 
-.search-div{
+.search-div {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 
-.pokedex{
+.pokedex {
     min-height: 30vh;
     color: white;
-    display: flex;
     padding: 1.5rem;
-    flex-direction: column;
     align-items: flex-end;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
 
-.pokemonInfo{
+.pokemonInfo {
     background-color: white;
-    min-height: 20rem;
+    min-height: 25rem;
     border-top-right-radius: 40px;
     border-top-left-radius: 40px;
     margin-top: -80px;
@@ -105,11 +105,11 @@ h1{
     border-bottom-right-radius: 20px;
 }
 
-.pokemon-pic{
+.pokemon-pic {
     width: 240px;
 }
 
-.stats-btn{
+.stats-btn {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -117,29 +117,36 @@ h1{
     align-items: flex-start;
 }
 
-.info-btn{
+.info-btn {
     border: unset;
     background-color: white;
     cursor: pointer;
+    font-size: 1.125rem;
 }
 
-.active{
+.active {
     border-bottom: 2px solid #a7a2ec;
     padding-bottom: 9px;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.cards{
+.cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.25rem;
 }
 
-.card{
+.cards-search {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.card {
     width: 300px;
     height: 150px;
     border-radius: 20px;
@@ -147,71 +154,317 @@ h1{
     box-shadow: 0px 0px 11px 1px;
     transition: transform 225ms, filter 225ms ease-in-out;
     transform-origin: center center;
+    margin: 1.25rem;
 }
 
-.card:hover{
+.card:hover {
     filter: brightness(110%);
     transform: scale(1.1);
 }
 
-.pokemon-name{
+.pokemon-name {
     text-align: center;
     font-size: 26px;
     color: white;
 }
 
-.pokemon-img{
+.pokemon-img {
     max-height: 124px;
     max-width: 140px;
 }
 
-.pokemon-img-div{
+.pokemon-img-div {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 130px; 
+    height: 130px;
 }
 
-.typs{
+.typs {
     color: white;
     font-size: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 5px;
 }
 
-.typs a{
+.typs a {
     color: white;
     text-decoration: none;
 }
 
-.overlay{
+.overlay {
     position: fixed;
     left: 0;
     right: 0;
-    top: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    top: 80px;
     width: 390px;
+    margin: auto;
 }
 
-.img-x{
+.img-x {
     height: 1.25rem;
     cursor: pointer;
 }
 
-.pokecard{
+.pokecard {
     display: flex;
     flex-direction: column;
 }
 
-.img-div{
+.img-div {
     display: flex;
     align-items: center;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: auto;
 }
 
-.pointer{ 
+.pointer {
     cursor: pointer;
+}
+
+.overlay-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+}
+
+.about-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 21px;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 330px;
+}
+
+.progress-bar {
+    background-color: #ead3d4;
+    width: 300px;
+    height: 5px;
+    border-radius: 5px;
+}
+
+.progress-bar div {
+    height: 5px;
+    border-radius: 5px;
+    width: 0%;
+    background-color: red;
+}
+
+.base-stats-info {
+    font-size: 1rem;
+}
+
+.progress-bar div span {
+    height: 29px;
+    width: 29px;
+    border-radius: 50%;
+    background-color: red;
+    float: right;
+    margin-top: -11px;
+    margin-right: -20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.HP {
+    background-color: #e91e63;
+    animation: hp 1s linear forwards;
+    animation-name: hp;
+}
+
+.Attack {
+    animation: attack 1s linear forwards;
+    animation-name: attack;
+}
+
+.Defence {
+    animation: defence 1s linear forwards;
+    animation-name: defence;
+}
+
+.SpAttack {
+    animation: spAttack 1s linear forwards;
+    animation-name: spAttack;
+}
+
+.SpDefence {
+    animation: spDefence 1s linear forwards;
+    animation-name: spDefence;
+}
+
+.Speed {
+    animation: speed 1s linear forwards;
+    animation-name: speed;
+
+}
+
+@keyframes HP {
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes Attack {
+    100% {
+        width: 0%;
+    }
+}
+
+@keyframes Defence {
+    100% {
+        width: 0%;
+    }
+}
+
+@keyframes SpAttack {
+    100% {
+        width: 0%;
+    }
+}
+
+@keyframes SpDefence {
+    100% {
+        width: 65%;
+    }
+}
+
+@keyframes Speed {
+    100% {
+        width: 75%;
+    }
+}
+
+.moves-btn {
+    border: unset;
+    background-color: white;
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 1.3125rem;
+}
+
+.moves-container {
+    height: 290px;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.close-search {
+    height: 30px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+@media(max-width:415px) {
+    .overlay {
+        width: 20.3125rem;
+        top: 1.25rem;
+    }
+
+    h1{
+        font-size: 1.25rem;
+    }
+
+    .pokemon-pic {
+        width: 10.25rem;
+    }
+}
+
+@media(max-width:350px) {
+    .pointer {
+        height: 1.5625rem;
+    }
+
+    .pokemonInfo{
+        min-height: 19rem;
+    }
+
+    .pokemon-pic {
+        width: 10.25rem;
+    }
+
+    .overlay {
+        width: 16.3125rem;
+    }
+
+    .progress-bar {
+        width: 12.5rem;
+    }
+
+    .moves-container {
+        height: 193px;
+    }
+
+    .card {
+        width: 240px;
+    }
+}
+
+@media(max-width:290px) {
+    .pokemon-pic {
+        width: 7.25rem;
+    }
+
+    .pointer {
+        height: 1rem;
+    }
+
+    .overlay {
+        width: 12.3125rem;
+    }
+
+    .container {
+        min-height: 265px;
+    }
+
+    .progress-bar div span {
+        font-size: 10px;
+        margin-top: -9px;
+        height: 22px;
+        width: 22px;
+    }
+
+    .base-stats-info{
+        font-size: 14px;
+    }
+
+    .progress-bar{
+        width: 9.5rem;
+    }
+    .about-info{
+        font-size: 1rem;
+    }
+
+    .moves-btn{
+        font-size: 1rem;
+    }
+
+    .pokemon-img{
+        max-width: 6.25rem;
+    }
+   
+    .typs{
+        font-size: 1.125rem;
+    }
+
+    .card{
+        width: 180px;
+    }
+
+}
+
+@media(max-width:240px){
+    .info-btn{
+        font-size: 14px;
+    }
 }
