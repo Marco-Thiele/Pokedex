@@ -13,22 +13,49 @@ const typeColors = {
     'psychic': 'orange',
     'ice': 'ice',
     'ghost': 'violet'
-    };
+};
+let loadedPokemons = 0;
+let pokemonsToLoad = 20;
+let isLoading = false;
+let overlay = false;
+let filter = false;
 
 
 async function loadAllPokemons() {
     let container = document.getElementById('allPokemons');
-    for (let i = 1; i < 152; i++) {
+    for (let i = 1; i < 21; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let responseAsJOIN = await response.json();
         let pokemonImage = responseAsJOIN['sprites']['other']['official-artwork']['front_default'];
-        console.log(responseAsJOIN);
         container.innerHTML += await returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage);
         bgChange(responseAsJOIN, i);
     }
+    loadedPokemons = 20;
 }
 
+window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 0 && !isLoading && !filter) {
+        loadMorePokemons();
+    }
+});
+
+
+async function loadMorePokemons() {
+    const container = document.getElementById('allPokemons');
+    isLoading = true;
+    for (let i = loadedPokemons + 1; i <= loadedPokemons + pokemonsToLoad; i++) {
+        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        const response = await fetch(url);
+        const responseAsJOIN = await response.json();
+        const pokemonImage = responseAsJOIN['sprites']['other']['official-artwork']['front_default'];
+        container.innerHTML += await returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage);
+        bgChange(responseAsJOIN, i);
+    }
+    loadedPokemons += pokemonsToLoad;
+    isLoading = false;
+}
 
 async function pokemonType(responseAsJOIN) {
     let typs = await responseAsJOIN['types'];
@@ -59,8 +86,10 @@ async function loadSingelPokemon(i) {
     let contant = document.getElementById('overlay');
     let firstContent = returnHtmlSinglePokemon(i);
     let secondContent = await returnHtmlSinglePokemon2(i);
-    contant.innerHTML = firstContent+secondContent;
+    document.getElementById('overlay-background').classList.add('overlay-background');
+    contant.innerHTML = firstContent + secondContent;
     renderPokemonInfo(currentPokemon, i);
+    overlay = true;
 }
 
 
@@ -90,7 +119,7 @@ async function about(i) {
 }
 
 
-function aboutBTN(abilities, abilityString){
+function aboutBTN(abilities, abilityString) {
     document.getElementById('about').classList.add('active');
     document.getElementById('baseStats').classList.remove('active');
     document.getElementById('moves').classList.remove('active');
@@ -116,13 +145,13 @@ async function baseStats(i) {
     let thirdcontant = returmHtmlBaseStats3(SpAttack, SpDefence);
     let fourthcontant = returmHtmlBaseStats4(Speed);
     let container = document.getElementById('information');
-    container.innerHTML = firstcontant + secondcontant + thirdcontant +fourthcontant;
+    container.innerHTML = firstcontant + secondcontant + thirdcontant + fourthcontant;
     calkulateProgressBar(currentPokemon)
     BaseStatsBtn()
 }
 
 
-function calkulateProgressBar(currentPokemon){
+function calkulateProgressBar(currentPokemon) {
     let HP = currentPokemon['stats'][0]['base_stat'];
     let hpshow = HP / 2.5;
     let Attack = currentPokemon['stats'][1]['base_stat'];
@@ -139,14 +168,14 @@ function calkulateProgressBar(currentPokemon){
 }
 
 
-function BaseStatsBtn(){
+function BaseStatsBtn() {
     document.getElementById('baseStats').classList.add('active');
     document.getElementById('about').classList.remove('active');
     document.getElementById('moves').classList.remove('active');
 }
 
 
-function showProgressBar(hpshow, attackShow, defenceShow, spAttackShow, spDefenceShow, speedShow){
+function showProgressBar(hpshow, attackShow, defenceShow, spAttackShow, spDefenceShow, speedShow) {
     const hpElement = document.querySelector('.HP');
     hpElement.style.width = `${hpshow}%`;
     const attackElement = document.querySelector('.Attack');
@@ -174,9 +203,9 @@ async function moves(i) {
 }
 
 
-function movesHtml(moves){
+function movesHtml(moves) {
     let container = document.getElementById('information');
-    container.innerHTML ='';
+    container.innerHTML = '';
     for (let j = 0; j < moves.length; j++) {
         const move = moves[j]['move']['name'];
         container.innerHTML += /*html*/`
@@ -195,11 +224,15 @@ async function overlayChange(currentPokemon) {
 
 
 function closeOverlay() {
+   if (overlay) {
     document.getElementById('overlay').classList.add('d-none');
+    document.getElementById('overlay-background').classList.remove('overlay-background');
     document.getElementById(`pokedex`).classList.remove('bg-color-green', 'bg-color-red', 'bg-color-blue', 'bg-color-oliv',
         'bg-color-grey', 'bg-color-purple', 'bg-color-yellow', 'bg-color-sand', 'bg-color-pink', 'bg-color-darkred', 'bg-color-brown',
         'bg-color-orange', 'bg-color-ice', 'bg-color-violet', 'bg-color-darkblue');
     document.getElementById('allPokemons').style.opacity = '1';
+   }
+
 }
 
 
@@ -225,6 +258,7 @@ function previousPokemon(i) {
 
 async function filterPokemons() {
     let search = document.getElementById('search').value;
+    filter= true;
     search = search.toLowerCase();
     document.getElementById('allPokemons').classList.add('cards-search');
     document.getElementById('allPokemons').classList.remove('cards');
@@ -234,7 +268,7 @@ async function filterPokemons() {
 }
 
 
-async function renderFilterPokemons(container, search){
+async function renderFilterPokemons(container, search) {
     for (let i = 1; i < 152; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -250,12 +284,18 @@ async function renderFilterPokemons(container, search){
 }
 
 
-function closeSearch(){
+function closeSearch() {
     document.getElementById('allPokemons').classList.remove('cards-search');
     document.getElementById('allPokemons').classList.add('cards');
     let container = document.getElementById('allPokemons');
     container.innerHTML = '';
     let search = document.getElementById('search');
-    search.value='';
+    search.value = '';
+    filter = false;
     loadAllPokemons()
+}
+
+
+function doNotClose(event){
+    event.stopPropagation();
 }

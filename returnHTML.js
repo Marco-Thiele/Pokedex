@@ -19,7 +19,7 @@ async function returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage){
 
  function returnHtmlSinglePokemon(i){
     return`
-    <div class="pokedex" id="pokedex">
+    <div class="pokedex" id="pokedex" onclick="doNotClose(event)">
     <div class="overlay-head">
         <div># ${i}</div>
         <div>
@@ -40,7 +40,7 @@ async function returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage){
 
 async function returnHtmlSinglePokemon2(i){
  return `
- <div class="pokemonInfo" id="pokemonInfo">
+ <div class="pokemonInfo" id="pokemonInfo" onclick="doNotClose(event)">
     <div class="stats-btn">
      <button id="about" onclick="about(${i})" class="info-btn active"><b>About</b></button>
      <button id="baseStats" onclick="baseStats(${i})" class="info-btn"><b>Base Stats</b></button>

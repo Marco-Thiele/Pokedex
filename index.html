@@ -18,27 +18,28 @@
 </head>
 
 <body onload="loadAllPokemons()">
+    <div id="overlay-background" onclick="closeOverlay()">
+    </div>
+        <header>
+            <h1>Pokedex</h1>
+            <p class="search-text">
+                Search for Pokémon by name.
+            </p>
+            <div class="search-div">
+                <input id="search" onchange="filterPokemons()" class="search-input" type="text"
+                    placeholder="Please write name">
+            </div>
 
-    <header>
-        <h1>Pokedex</h1>
-        <p class="search-text">
-            Search for Pokémon by name.
-        </p>
-        <div class="search-div">
-            <input id="search" onchange="filterPokemons()" class="search-input" type="text"
-                placeholder="Please write name">
+        </header>
+
+        <div class="cards" id="allPokemons">
+
         </div>
 
-    </header>
+        <div class="d-none overlay" id="overlay">
+        </div>
 
-    <div class="cards" id="allPokemons">
-
-    </div>
-    <div class="d-none overlay" id="overlay">
-
-    </div>
-
-
+    
 </body>
 
 </html>
