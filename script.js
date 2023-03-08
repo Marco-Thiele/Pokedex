@@ -1,3 +1,20 @@
+const typeColors = {
+    'grass': 'green',
+    'fire': 'red',
+    'water': 'blue',
+    'bug': 'oliv',
+    'normal': 'grey',
+    'poison': 'purple',
+    'electric': 'yellow',
+    'ground': 'sand',
+    'fairy': 'pink',
+    'fighting': 'darkred',
+    'rock': 'brown',
+    'psychic': 'orange',
+    'ice': 'ice',
+    'ghost': 'violet'
+    };
+
 
 async function loadAllPokemons() {
     let container = document.getElementById('allPokemons');
@@ -10,25 +27,6 @@ async function loadAllPokemons() {
         container.innerHTML += await returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage);
         bgChange(responseAsJOIN, i);
     }
-}
-
-
-async function returnHtmlAllPokemons(i, responseAsJOIN, pokemonImage){
-    return /*html*/`
-    <div onclick="loadSingelPokemon(${i})" class="card" id="card${i}">
-        <div class="pokemon-name">
-            ${await capitalize(responseAsJOIN['name'])}
-        </div>
-        <div class="pokemon-img-div">
-            <div class="typs" id="typs${i}">
-            <a href="">#${i}</a>
-            ${await pokemonType(responseAsJOIN, i)}
-            </div>
-            <div>
-            <img class="pokemon-img" src="${pokemonImage}" alt="">
-            </div>
-        </div>
-    </div>`;
 }
 
 
@@ -48,38 +46,9 @@ async function capitalize(s) {
 }
 
 async function bgChange(typs, i) {
-    let typ = await typs['types'][0]['type']['name'];
-    if (await typ == 'grass') {
-        document.getElementById(`card${i}`).classList.add('bg-color-green');
-    } else if (await typ == 'fire') {
-        document.getElementById(`card${i}`).classList.add('bg-color-red');
-    } else if (await typ == 'water') {
-        document.getElementById(`card${i}`).classList.add('bg-color-blue');
-    } else if (await typ == 'bug') {
-        document.getElementById(`card${i}`).classList.add('bg-color-oliv');
-    } else if (await typ == 'normal') {
-        document.getElementById(`card${i}`).classList.add('bg-color-grey');
-    } else if (await typ == 'poison') {
-        document.getElementById(`card${i}`).classList.add('bg-color-purple');
-    } else if (await typ == 'electric') {
-        document.getElementById(`card${i}`).classList.add('bg-color-yellow');
-    } else if (await typ == 'ground') {
-        document.getElementById(`card${i}`).classList.add('bg-color-sand');
-    } else if (await typ == 'fairy') {
-        document.getElementById(`card${i}`).classList.add('bg-color-pink');
-    } else if (await typ == 'fighting') {
-        document.getElementById(`card${i}`).classList.add('bg-color-darkred');
-    } else if (await typ == 'rock') {
-        document.getElementById(`card${i}`).classList.add('bg-color-brown');
-    } else if (await typ == 'psychic') {
-        document.getElementById(`card${i}`).classList.add('bg-color-orange');
-    } else if (await typ == 'ice') {
-        document.getElementById(`card${i}`).classList.add('bg-color-ice');
-    } else if (await typ == 'ghost') {
-        document.getElementById(`card${i}`).classList.add('bg-color-violet');
-    } else {
-        document.getElementById(`card${i}`).classList.add('bg-color-darkblue');
-    }
+    const typ = await typs['types'][0]['type']['name'];
+    const color = typeColors[typ] || 'darkblue';
+    document.getElementById(`card${i}`).classList.add(`bg-color-${color}`);
 }
 
 
@@ -92,40 +61,6 @@ async function loadSingelPokemon(i) {
     let secondContent = await returnHtmlSinglePokemon2(i);
     contant.innerHTML = firstContent+secondContent;
     renderPokemonInfo(currentPokemon, i);
-}
-
-
- function returnHtmlSinglePokemon(i){
-    return`
-    <div class="pokedex" id="pokedex">
-    <div class="overlay-head">
-        <div># ${i}</div>
-        <div>
-        <img onclick="closeOverlay()" class="img-x" src="img/x.ico" alt="">
-        </div>
-    </div>
-    <div class="pokecard">
-        <h1 id="pokemonName">Name</h1>
-        <div class="img-div">
-            <img onclick="previousPokemon(${i})" class="pointer" src="img/left.ico">
-            <img class="pokemon-pic" id="pokemonPic" src="" alt="">
-            <img onclick="nextPokemon(${i})" class="pointer" src="img/right.ico" alt="">
-        </div>
-    </div>
-</div>`;
-}
-
-async function returnHtmlSinglePokemon2(i){
- return `
- <div class="pokemonInfo" id="pokemonInfo">
-    <div class="stats-btn">
-     <button id="about" onclick="about(${i})" class="info-btn active"><b>About</b></button>
-     <button id="baseStats" onclick="baseStats(${i})" class="info-btn"><b>Base Stats</b></button>
-     <button id="moves" onclick="moves(${i})" class="info-btn"><b>Moves</b></button>
-    </div>
-    <div class="moves-container" id="information" >
-    </div>
- </div>`;
 }
 
 
@@ -154,6 +89,7 @@ async function about(i) {
     aboutBTN(abilities, abilityString);
 }
 
+
 function aboutBTN(abilities, abilityString){
     document.getElementById('about').classList.add('active');
     document.getElementById('baseStats').classList.remove('active');
@@ -162,21 +98,6 @@ function aboutBTN(abilities, abilityString){
         const ability = abilities[j]['ability']['name'];
         abilityString += `${ability}, `;
     }
-}
-
-
-function returnHtmlAbout(height, weight){
-    return `
-    <div class="about-info">
-        <span>
-            Height: ${height} m
-        </span>
-        <span>
-            Weight: ${weight} Kg
-        </span>
-        <span id="abilities">  
-        </span>
-    </div>`;
 }
 
 
@@ -241,67 +162,6 @@ function showProgressBar(hpshow, attackShow, defenceShow, spAttackShow, spDefenc
 }
 
 
-function returmHtmlBaseStats1(HP){
-    return  `
-    <div class="container">
-        <div class="skills">
-            <h2 class="base-stats-info">HP</h2>
-            <div class="progress-bar">
-                <div class="HP">
-                    <span>${HP}</span>
-                </div>
-            </div>`;
-}
-
-
-function returmHtmlBaseStats2(Attack, Defence){
-    return`
-    <h2 class="base-stats-info">Attack</h2>
-            <div class="progress-bar">
-                <div class="Attack">
-                    <span>${Attack}</span>
-                </div>
-            </div>
-            <h2 class="base-stats-info">Defence</h2>
-            <div class="progress-bar">
-                <div class="Defence">
-                    <span>${Defence}</span>
-                </div>
-            </div>`
-}
-
-
-function returmHtmlBaseStats3(SpAttack, SpDefence){
-    return`
-    <h2 class="base-stats-info">Sp.Attack</h2>
-            <div class="progress-bar">
-                <div class="SpAttack">
-                    <span>${SpAttack}</span>
-                </div>
-            </div>
-            <h2 class="base-stats-info">Sp.Defence</h2>
-            <div class="progress-bar">
-                <div class="SpDefence">
-                    <span>${SpDefence}</span>
-                </div>
-            </div>`
-}
-
-
-function returmHtmlBaseStats4(Speed){
-    return`
-    <h2 class="base-stats-info">Speed</h2>
-            <div class="progress-bar">
-                <div class="Speed">
-                    <span>${Speed}</span>
-                </div>
-            </div>
-
-        </div>
-    </div>`
-}
-
-
 async function moves(i) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
@@ -328,38 +188,9 @@ function movesHtml(moves){
 
 
 async function overlayChange(currentPokemon) {
-    let typ = await currentPokemon['types'][0]['type']['name'];
-    if (await typ == 'grass') {
-        document.getElementById(`pokedex`).classList.add('bg-color-green');
-    } else if (await typ == 'fire') {
-        document.getElementById(`pokedex`).classList.add('bg-color-red');
-    } else if (await typ == 'water') {
-        document.getElementById(`pokedex`).classList.add('bg-color-blue');
-    } else if (await typ == 'bug') {
-        document.getElementById(`pokedex`).classList.add('bg-color-oliv');
-    } else if (await typ == 'normal') {
-        document.getElementById(`pokedex`).classList.add('bg-color-grey');
-    } else if (await typ == 'poison') {
-        document.getElementById(`pokedex`).classList.add('bg-color-purple');
-    } else if (await typ == 'electric') {
-        document.getElementById(`pokedex`).classList.add('bg-color-yellow');
-    } else if (await typ == 'ground') {
-        document.getElementById(`pokedex`).classList.add('bg-color-sand');
-    } else if (await typ == 'fairy') {
-        document.getElementById(`pokedex`).classList.add('bg-color-pink');
-    } else if (await typ == 'fighting') {
-        document.getElementById(`pokedex`).classList.add('bg-color-darkred');
-    } else if (await typ == 'rock') {
-        document.getElementById(`pokedex`).classList.add('bg-color-brown');
-    } else if (await typ == 'psychic') {
-        document.getElementById(`pokedex`).classList.add('bg-color-orange');
-    } else if (await typ == 'ice') {
-        document.getElementById(`pokedex`).classList.add('bg-color-ice');
-    } else if (await typ == 'ghost') {
-        document.getElementById(`pokedex`).classList.add('bg-color-violet');
-    } else {
-        document.getElementById(`pokedex`).classList.add('bg-color-darkblue');
-    }
+    const typ = await currentPokemon['types'][0]['type']['name'];
+    const color = typeColors[typ] || 'darkblue';
+    document.getElementById(`pokedex`).classList.add(`bg-color-${color}`);
 }
 
 
@@ -391,6 +222,7 @@ function previousPokemon(i) {
     loadSingelPokemon(i)
 }
 
+
 async function filterPokemons() {
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
@@ -415,25 +247,6 @@ async function renderFilterPokemons(container, search){
         }
     }
     container.innerHTML += '<div><img onclick="closeSearch()" class="close-search" src="img/x.ico" alt=""></div> '
-}
-
-
-async function filterPokemonsHtml(pokemonImage, name,  responseAsJOIN, i){
-    return `        
-    <div onclick="loadSingelPokemon(${i})" class="card" id="card${i}">
-        <div class="pokemon-name">
-            ${await capitalize(name)}
-        </div>
-        <div class="pokemon-img-div">
-            <div class="typs" id="typs${i}">
-            <a href="">#${i}</a>
-            ${await pokemonType(responseAsJOIN, i)}
-            </div>
-            <div>
-            <img class="pokemon-img" src="${pokemonImage}" alt="">
-            </div>
-        </div>
-    </div>`
 }
 
 
